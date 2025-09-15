@@ -1,0 +1,27 @@
+#!/bin/bash
+#SBATCH -J JOB_NAME_MCRIT
+#SBATCH -o WORK_DIR/ICS_DIR/LOG/JOB_NAME_MCRIT.o1
+#SBATCH -e WORK_DIR/ICS_DIR/LOG/JOB_NAME_MCRIT.e1
+#SBATCH -p PARTITION_MCRIT
+#SBATCH -N N_NODES_MCRIT
+#SBATCH -n N_MPI_MCRIT
+#SBATCH -t JOB_TIME_MCRIT
+#SBATCH --mail-user=mts2188@columbia.edu
+#SBATCH --mail-type=NONE
+#SBATCH -A TG-AST140041
+#SBATCH -A TG-AST140041
+module load python
+module list
+pwd
+date
+LOG_FILE=WORK_DIR/ICS_DIR/LOG/JOB_NAME_MCRIT
+rm $LOG_FILE 
+
+for run in RUN_NUMS_BASH
+do
+	for halo_type in HALO_FOLDERS
+	do
+		python -u WORK_DIR/execs/mcrit.py OUT_DIR/sim$run/$halo_type WORK_DIR/ICS_DIR/mcrit_files MIN_MASS_MCRIT SAVE_TAIL_MCRIT >> $LOG_FILE
+	done
+done
+date

@@ -1,0 +1,38 @@
+#!/bin/bash
+#SBATCH -J JOB_NAME_IC
+#SBATCH -o WORK_DIR/ICS_DIR/LOG/JOB_NAME_IC.o1
+#SBATCH -e WORK_DIR/ICS_DIR/LOG/JOB_NAME_IC.e1 
+#SBATCH -p PARTITION_IC
+#SBATCH -N N_NODES_IC
+#SBATCH -n N_MPI_IC
+#SBATCH -t JOB_TIME_IC
+#SBATCH --mail-user=mts2188@columbia.edu
+#SBATCH --mail-type=NONE
+#SBATCH -A TG-AST140041
+
+
+module load hdf5
+module load gsl
+module load fftw3
+module list
+pwd
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.local/lib
+export OMP_NUM_THREADS=4
+
+
+date
+LOG_FILE=WORK_DIR/ICS_DIR/LOG/JOB_NAME_IC
+rm $LOG_FILE 
+WORK_DIR/execs/transfer.x -BBOX_SIZE_1D -NPARTICLE_DIM -J1 -VV_BARYONIC -ZZ_START -D1 -SinitSB_transfer_out >> $LOG_FILE
+WORK_DIR/execs/genICs.x -HBIG_H -OOMEGA_M -BOMEGA_B -LBOX_SIZE_1D -VV_BARYONIC -NPARTICLE_DIM -GGRID_DIM -ZZ_START  -bTRANSFER_NAME -gWORK_DIR/ICS_DIR/glass_128_usethis -oWORK_DIR/ICS_DIR/ >> $LOG_FILE
+date
+
+rm IO_Log
+rm initSimCart*
+mv Part* ICS_DIR
+mv Grid* ICS_DIR
+mv TRANSFER_NAME.pk ICS_DIR/
+
+
+
+

@@ -1,0 +1,75 @@
+ProblemType                              = 30  
+TopGridRank                              = 3
+SelfGravity                              = 1 
+TopGridDimensions                        = GRID_DIM GRID_DIM GRID_DIM
+TopGridGravityBoundary                   = 0     
+LeftFaceBoundaryCondition                = 3 3 3  
+RightFaceBoundaryCondition               = 3 3 3
+StaticHierarchy				 = 0
+CosmologyMaxExpansionRate                = 0.015  
+CosmologySimulationOmegaBaryonNow        = OMEGA_B
+CosmologySimulationOmegaCDMNow           = OMEGA_CDM
+CosmologySimulationDensityName           = GridDensity
+CosmologySimulationTotalEnergyName       = GridEnergy
+CosmologySimulationVelocity1Name         = GridVelocities
+CosmologySimulationVelocity2Name         = GridVelocities
+CosmologySimulationVelocity3Name         = GridVelocities
+CosmologySimulationParticlePositionName  = ParticlePositions
+CosmologySimulationParticleVelocityName  = ParticleVelocities
+ComovingCoordinates                      = 1   
+CosmologyOmegaMatterNow                  = OMEGA_M
+CosmologyOmegaLambdaNow                  = OMEGA_L
+CosmologyHubbleConstantNow               = BIG_H
+CosmologyComovingBoxSize                 = BOX_SIZE_1D
+CosmologyInitialRedshift                 = Z_START
+CosmologyFinalRedshift                   = Z_END
+GravitationalConstant                    = 1  
+ParallelRootGridIO                       = 1
+ParallelParticleIO                       = 1
+PartitionNestedGrids                     = 1
+CosmologySimulationNumberOfInitialGrids  = 1
+CosmologySimulationManuallySetParticleMassRatio = 1
+CosmologySimulationManualParticleMassRatio = 1
+
+
+#OUTPUTS
+COSMOLOGY_OUTPUT_LIST
+
+
+#LW background, always setting to 1 but turning to 0 in the input file LW_J21.in
+TabulatedLWBackground			 = 1
+
+#refinement
+RefineBy 				 = REFINE_BY
+CellFlaggingMethod  			 = 2 4 JEANS_LENGTH_ON  #baryon mass, dm, and jeans length
+MinimumOverDensityForRefinement		 = 4 4 JEANS_LENGTH_VAL #Should work, 4 times main grid density
+RefineByJeansLengthSafetyFactor		 = 4 #default
+UseMinimumPressureSupport		 = 1
+MinimumPressureSupportParameter		 = 64
+
+
+
+RedshiftDumpDir = ../../../../../..OUT_DIR/simRUN_NUMBER/RD
+RadiationShield 			 = RADIATION_SHIELD #normally 2, for H2,2011 Wolcott, not 2018
+RadiativeCooling 			 = 1
+MultiSpecies 				 = MULTI_SPECIES #normally 2
+RadiationFieldType			 = RADIATION_FIELD_TYPE #normally 9, only internal H2 supported type
+MetalCooling                             = 1
+MetalCoolingTable                        = metal_cool.dat #the z=15 file
+MaximumRefinementLevel 			 = REFINEMENT_LEVEL #0 based, so total # of lvls isone more than this
+
+
+#New params for the dynamical tests
+RadiationRedshiftOn			 = 30.0 #only internal H2 supported type
+RadiationRedshiftFullOn			 = 20.0 #only internal H2 supported type
+
+
+
+
+
+
+#CICASSSTUFF
+DualEnergyFormalism = 1 
+DualEnergyFormalismEta2 = 1.0
+RateDataCaseBRecombination = 1 
+CosmologySimulationInitialFractionHII = 2.754e-5
