@@ -1,0 +1,15 @@
+sim7 for 512 jlw = 0 will be the xray run
+
+1024 sim still not working, trying it with ibrun instead. Switching to 64 nodes (from 32) didn't change anything, it's still causing an error at z=34
+
+doesnt work with ibrun, same error. Dropping refinement level to 3 and trying more nodes
+
+trying skx with 64 nodes, timed out after 6 hours at redshift 70 with ibrun. trying mpirun
+
+worked until z=34 again. Dropping the refinement level to see if this is a memory thing. Next I should try a different compiler or mode for enzo
+
+
+
+
+
+###CONSISTENT TREES HAS A PARAM FILE
